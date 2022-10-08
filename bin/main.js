@@ -41,6 +41,25 @@ const uiFrameworks = [
   },
 ];
 
+const uiFiles = {
+  vue: `
+files {
+  "html/index.html",
+  "html/assets/*.js",
+  "html/assets/*.css"
+}
+`,
+  svelte: `
+files {
+  "html/index.html",
+  "html/chunks/*.js",
+  "html/entries/**/*.js",
+  "html/assets/*.css"
+}
+`,
+  react: "",
+};
+
 let fivemFrameworkChoices = [];
 for (i = 0; i < frameworks.length; i++) {
   fivemFrameworkChoices.push(frameworks[i].label);
@@ -127,11 +146,7 @@ if (yargs.argv._[0] == null || yargs.argv._[0] == undefined) {
               return console.log(err);
             }
             data += `\n
-files {
-  "html/index.html",
-  "html/assets/*.js",
-  "html/assets/*.css"
-}
+${uiFiles[uiTemplate]}
 
 ui_page "html/index.html"
             `;
