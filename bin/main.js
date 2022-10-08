@@ -2,9 +2,12 @@
 
 // IMPORTS
 const yargs = require("yargs");
+const inquirer = require("inquirer");
+const fs = require("fs");
+const fse = require("fs-extra");
 
 // VARIABLES
-const templates = [
+const frameworks = [
   {
     label: "Standalone",
     value: "standalone",
@@ -16,6 +19,13 @@ const templates = [
   {
     label: "ESX",
     value: "esx",
+  },
+];
+
+const uiFrameworks = [
+  {
+    label: "None",
+    value: "none",
   },
   {
     label: "React",
@@ -31,18 +41,38 @@ const templates = [
   },
 ];
 
-// FUNCTIONS
-function isValidType(type) {
-  let foundType = false;
-  for (let i = 0; i < templates.length; i++) {
-    if (type == templates[i].value) {
-      foundType = true;
-    }
-  }
-  return foundType;
+let fivemFrameworkChoices = [];
+for (i = 0; i < frameworks.length; i++) {
+  fivemFrameworkChoices.push(frameworks[i].label);
 }
 
-function showHelp() {
+let uiFrameworkChoices = [];
+for (i = 0; i < uiFrameworks.length; i++) {
+  uiFrameworkChoices.push(uiFrameworks[i].label);
+}
+
+// FUNCTIONS
+function getTemplateFromLabel(list, label) {
+  let foundType = false;
+  for (let i = 0; i < list.length; i++) {
+    if (label == list[i].label) {
+      return list[i].value;
+    }
+  }
+  return undefined;
+}
+
+// MAIN
+const options = yargs
+  .usage("Usage: fivemresource new <project_name>")
+  .option("templates", {
+    describe: "List all templates.",
+    type: "boolean",
+    demandOption: false,
+  })
+  .help(true).argv;
+
+if (yargs.argv.templates == true) {
   let formattedTemplates = templates.reduce((acc, { label, ...x }) => {
     acc[label] = x;
     return acc;
@@ -52,21 +82,73 @@ function showHelp() {
   console.table(formattedTemplates);
 }
 
-// MAIN
-const usage = "\nUsage: fivemresource <action>";
-const options = yargs
-  .usage(usage)
-  .option("templates", {
-    describe: "List all templates.",
-    type: "boolean",
-    demandOption: false,
-  })
-  .help(true).argv;
+if (yargs.argv._[0] == null || yargs.argv._[0] == undefined) {
+  console.log("Usage: fivemresource new <template_name>");
+} else {
+  if (yargs.argv._[0].toLowerCase() == "new") {
+    inquirer
+      .prompt([
+        {
+          type: "input",
+          name: "name",
+          message: "Project folder name (leave blank for local folder)",
+        },
+        {
+          type: "list",
+          name: "fivemFramework",
+          message: "What FiveM framework do you want to use?",
+          choices: fivemFrameworkChoices,
+        },
+        {
+          type: "list",
+          name: "uiTemplate",
+          message: "What UI framework do you want to use?",
+          choices: uiFrameworkChoices,
+        },
+      ])
+      .then(async (answers) => {
+        const path = answers.name !== undefined ? "./" + answers.name : "./";
+        const fivemTemplate = getTemplateFromLabel(
+          frameworks,
+          answers.fivemFramework
+        );
+        const uiTemplate = getTemplateFromLabel(
+          uiFrameworks,
+          answers.uiTemplate
+        );
 
-if (yargs.argv.templates == true) {
-  showHelp();
+        fse.copySync(`${__dirname}/../templates/fivem/${fivemTemplate}`, path, {
+          overwrite: true,
+        });
+
+        if (uiTemplate !== "none") {
+          fs.readFile(`${path}/fxmanifest.lua`, "utf8", function (err, data) {
+            if (err) {
+              return console.log(err);
+            }
+            data += `\n
+files {
+  "html/index.html",
+  "html/assets/*.js",
+  "html/assets/*.css"
 }
 
-if (yargs.argv._[0] == null) {
-  showHelp();
+ui_page "html/index.html"
+            `;
+
+            fs.writeFile(`${path}/fxmanifest.lua`, data, function (err) {
+              if (err) return console.log(err);
+            });
+          });
+
+          fse.copySync(`${__dirname}/../templates/ui/${uiTemplate}`, path, {
+            overwrite: true,
+          });
+        }
+      });
+  } else {
+    console.log(
+      "Invalid usage, you have to enter a valid folder / project name.\nfivemresource new <project_name>"
+    );
+  }
 }
