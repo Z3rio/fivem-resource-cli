@@ -1,4 +1,4 @@
-[Logo](https://user-images.githubusercontent.com/54480523/194730794-f51a5627-7d48-4238-9117-c2f6b9bb567f.png)
+[Logo](logo.png)
 
 # FiveM Resource CLI
 
