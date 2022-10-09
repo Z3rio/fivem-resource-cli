@@ -24,3 +24,20 @@ Node.js / NPM
 - [fs-extra](https://www.npmjs.com/package/fs-extra)
 - [inquirer](https://www.npmjs.com/package/inquirer)
 - [yargs](https://www.npmjs.com/package/yargs)
+
+<br>
+
+# FiveM Boilerplate types
+
+- Standalone / No framework
+- QB-Core
+- ESX
+
+# UI Boilerplate types
+
+- No UI
+- Normal Javascript
+- Vue 3.0
+- Vue 2.0 / CDN
+- JQuery
+-
