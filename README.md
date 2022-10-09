@@ -35,9 +35,10 @@ Node.js / NPM
 
 # UI Boilerplate types
 
+(All boilerplates have a JS & TS version)
+
 - No UI
-- Normal Javascript
+- No framework
 - Vue 3.0
 - Vue 2.0 / CDN
 - JQuery
--

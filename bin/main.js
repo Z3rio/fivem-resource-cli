@@ -28,8 +28,8 @@ const uiFrameworks = [
     value: "none",
   },
   {
-    label: "Default Javascript",
-    value: "defaultjs",
+    label: "Default",
+    value: "default",
   },
   {
     label: "Vue 3.0",
@@ -43,6 +43,7 @@ const uiFrameworks = [
     label: "Jquery",
     value: "jquery",
   },
+  // TODO: Add more UI frameworks
   // {
   //   label: "Svelte",
   //   value: "svelte",
@@ -58,43 +59,66 @@ const uiFrameworks = [
 ];
 
 const uiFiles = {
-  vue3: `
+  js: {
+    vue3: `
 files {
   "html/index.html",
   "html/assets/*.js",
   "html/assets/*.css"
 }
 `,
-  vuecdn: `
+    vuecdn: `
 files {
   "html/index.html",
   "html/*.js",
   "html/*.css"
 }
 `,
-  jquery: `
+    jquery: `
 files {
   "html/index.html",
   "html/*.js",
   "html/*.css"
 }
 `,
-  defaultjs: `
+    default: `
 files {
   "html/index.html",
   "html/*.js",
   "html/*.css"
 }
 `,
-  svelte: `
+  },
+  ts: {
+    vue3: `
 files {
   "html/index.html",
-  "html/chunks/*.js",
-  "html/entries/**/*.js",
+  "html/assets/*.js",
   "html/assets/*.css"
 }
 `,
-  react: "",
+    vuecdn: `
+files {
+  "html/index.html",
+  "html/*.ts",
+  "html/*.css"
+}
+`,
+    jquery: `
+files {
+  "html/index.html",
+  "html/*.ts",
+  "html/*.css"
+}
+`,
+    default: `
+files {
+  "html/index.html",
+  "html/*.ts",
+  "html/*.css"
+}
+`,
+  },
 };
 
 let fivemFrameworkChoices = [];
@@ -161,9 +185,16 @@ if (yargs.argv._[0] == null || yargs.argv._[0] == undefined) {
           message: "What UI framework do you want to use?",
           choices: uiFrameworkChoices,
         },
+        {
+          type: "list",
+          name: "type",
+          message: "What language do you want to use for the UI?",
+          choices: ["Javascript", "Typescript"],
+        },
       ])
       .then(async (answers) => {
         const path = answers.name !== undefined ? "./" + answers.name : "./";
+        const type = answers.type == "Javascript" ? "js" : "ts";
         const fivemTemplate = getTemplateFromLabel(
           frameworks,
           answers.fivemFramework
@@ -183,7 +214,7 @@ if (yargs.argv._[0] == null || yargs.argv._[0] == undefined) {
               return console.log(err);
             }
             data += `\n
-${uiFiles[uiTemplate]}
+${uiFiles[type][uiTemplate]}
 
 ui_page "html/index.html"
             `;
@@ -193,9 +224,13 @@ ui_page "html/index.html"
             });
           });
 
-          fse.copySync(`${__dirname}/../templates/ui/${uiTemplate}`, path, {
-            overwrite: true,
-          });
+          fse.copySync(
+            `${__dirname}/../templates/ui/${type}/${uiTemplate}`,
+            path,
+            {
+              overwrite: true,
+            }
+          );
         }
       });
   } else {
