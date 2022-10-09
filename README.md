@@ -18,7 +18,8 @@ Then you can use vue / react etc as normal building using `npm run build` and su
 
 ## Requirements
 
-Node.js / NPM
+- [Node.js](https://nodejs.org/en/)
+- A FiveM server if you actually want to use the files generated from this CLI.
 
 ## Technologies used
 
@@ -26,14 +27,15 @@ Node.js / NPM
 - [fs-extra](https://www.npmjs.com/package/fs-extra)
 - [inquirer](https://www.npmjs.com/package/inquirer)
 - [yargs](https://www.npmjs.com/package/yargs)
+- All UI frameworks use [Vite](https://vitejs.dev/) for building
 
 <br>
 
 # FiveM Boilerplate types
 
 - Standalone / No framework
-- QB-Core
-- ESX
+- [QB-Core](https://github.com/qbcore-framework)
+- [ESX](https://github.com/esx-framework/esx-legacy)
 
 # UI Boilerplate types
 
@@ -41,6 +43,7 @@ Node.js / NPM
 
 - No UI
 - No framework
-- Vue 3.0
-- Vue 2.0 / CDN
-- JQuery
+- [Vue 3.0](https://jquery.com/)
+- [Vue 2.0 / CDN](https://vuejs.org/)
+- [JQuery](https://jquery.com/)
+- [React](https://reactjs.org/)

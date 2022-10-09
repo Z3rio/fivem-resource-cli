@@ -28,8 +28,8 @@ const uiFrameworks = [
     value: "none",
   },
   {
-    label: "Default",
-    value: "default",
+    label: "React",
+    value: "react",
   },
   {
     label: "Vue 3.0",
@@ -38,6 +38,10 @@ const uiFrameworks = [
   {
     label: "Vue 2.0 (CDN)",
     value: "vuecdn",
+  },
+  {
+    label: "Default",
+    value: "default",
   },
   {
     label: "Jquery",
@@ -52,15 +56,18 @@ const uiFrameworks = [
   //   label: "Angular",
   //   value: "angular",
   // },
-  // {
-  //   label: "React",
-  //   value: "react",
-  // },
 ];
 
 const uiFiles = {
   js: {
     vue3: `
+files {
+  "html/index.html",
+  "html/assets/*.js",
+  "html/assets/*.css"
+}
+`,
+    react: `
 files {
   "html/index.html",
   "html/assets/*.js",
@@ -102,6 +109,13 @@ files {
   "html/index.html",
   "html/*.ts",
   "html/*.css"
+}
+`,
+    react: `
+files {
+  "html/index.html",
+  "html/assets/*.js",
+  "html/assets/*.css"
 }
 `,
     jquery: `
