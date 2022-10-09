@@ -28,6 +28,10 @@ const uiFrameworks = [
     value: "none",
   },
   {
+    label: "Default Javascript",
+    value: "defaultjs",
+  },
+  {
     label: "Vue 3.0",
     value: "vue3",
   },
@@ -69,6 +73,13 @@ files {
 }
 `,
   jquery: `
+files {
+  "html/index.html",
+  "html/*.js",
+  "html/*.css"
+}
+`,
+  defaultjs: `
 files {
   "html/index.html",
   "html/*.js",
