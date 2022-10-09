@@ -2,7 +2,8 @@
 
 # FiveM Resource CLI
 
-This is a FiveM resource CLI made to make it easier for people to create their own resources.
+This is a FiveM resource CLI made to make it easier for people to create their own resources.<br>
+You can pick any of the popular fivem frameworks and ui frameworks and the CLI will setup a boilerplate resource for you.
 
 # Installation
 
