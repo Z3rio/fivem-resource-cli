@@ -1,4 +1,4 @@
-![Logo](https://user-images.githubusercontent.com/54480523/194730794-f51a5627-7d48-4238-9117-c2f6b9bb567f.png)
+[Logo](https://user-images.githubusercontent.com/54480523/194730794-f51a5627-7d48-4238-9117-c2f6b9bb567f.png)
 
 # FiveM Resource CLI
 
@@ -12,7 +12,9 @@ Run `npm install -g fivem-resource-cli` in a console window.
 
 # Usage
 
-To use this CLI, run `fivemresource new` in any command window.
+To use this CLI, run `fivemresource new` in any command window.<br>
+If you are going to use any UI framework such as VUE, go into the recently created resource folder and then open the command line in the `src` folder and run `npm install`.<br>
+Then you can use vue / react etc as normal building using `npm run build` and such.
 
 ## Requirements
 
