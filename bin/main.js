@@ -32,8 +32,12 @@ const uiFrameworks = [
     value: "react",
   },
   {
-    label: "Vue",
-    value: "vue",
+    label: "Vue 3.0",
+    value: "vue3",
+  },
+  {
+    label: "Vue 2.0 (CDN)",
+    value: "vuecdn",
   },
   {
     label: "Svelte",
@@ -42,11 +46,18 @@ const uiFrameworks = [
 ];
 
 const uiFiles = {
-  vue: `
+  vue3: `
 files {
   "html/index.html",
   "html/assets/*.js",
   "html/assets/*.css"
+}
+`,
+  vuecdn: `
+files {
+  "html/index.html",
+  "html/*.js",
+  "html/*.css"
 }
 `,
   svelte: `
