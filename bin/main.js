@@ -28,10 +28,6 @@ const uiFrameworks = [
     value: "none",
   },
   {
-    label: "React",
-    value: "react",
-  },
-  {
     label: "Vue 3.0",
     value: "vue3",
   },
@@ -40,9 +36,21 @@ const uiFrameworks = [
     value: "vuecdn",
   },
   {
-    label: "Svelte",
-    value: "svelte",
+    label: "Jquery",
+    value: "jquery",
   },
+  // {
+  //   label: "Svelte",
+  //   value: "svelte",
+  // },
+  // {
+  //   label: "Angular",
+  //   value: "angular",
+  // },
+  // {
+  //   label: "React",
+  //   value: "react",
+  // },
 ];
 
 const uiFiles = {
@@ -54,6 +62,13 @@ files {
 }
 `,
   vuecdn: `
+files {
+  "html/index.html",
+  "html/*.js",
+  "html/*.css"
+}
+`,
+  jquery: `
 files {
   "html/index.html",
   "html/*.js",
