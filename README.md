@@ -23,10 +23,9 @@ Then you can use vue / react etc as normal building using `npm run build` and su
 
 ## Technologies used
 
-- [fs](https://www.npmjs.com/package/fs)
-- [fs-extra](https://www.npmjs.com/package/fs-extra)
-- [inquirer](https://www.npmjs.com/package/inquirer)
-- [yargs](https://www.npmjs.com/package/yargs)
+- [fs](https://www.npmjs.com/package/fs) & [fs-extra](https://www.npmjs.com/package/fs-extra) for filesystem handling
+- [inquirer](https://www.npmjs.com/package/inquirer) for prompt / input handling
+- [yargs](https://www.npmjs.com/package/yargs) for cli parameter handling
 - All UI frameworks use [Vite](https://vitejs.dev/) for building
 
 <br>
