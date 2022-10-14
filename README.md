@@ -1,4 +1,4 @@
-[Logo](logo.png)
+![Logo](https://raw.githubusercontent.com/Z3rio/fivem-resource-cli/main/logo.png)
 
 # FiveM Resource CLI
 
