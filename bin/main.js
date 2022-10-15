@@ -203,16 +203,9 @@ if (yargs.argv._[0] == null || yargs.argv._[0] == undefined) {
           message: "What UI framework do you want to use?",
           choices: uiFrameworkChoices,
         },
-        {
-          type: "list",
-          name: "type",
-          message: "What language do you want to use for the UI?",
-          choices: ["Javascript", "Typescript"],
-        },
       ])
       .then(async (answers) => {
         const path = answers.name !== undefined ? "./" + answers.name : "./";
-        const type = answers.type == "Javascript" ? "js" : "ts";
         const fivemTemplate = getTemplateFromLabel(
           frameworks,
           answers.fivemFramework
@@ -227,28 +220,45 @@ if (yargs.argv._[0] == null || yargs.argv._[0] == undefined) {
         });
 
         if (uiTemplate !== "none") {
-          fs.readFile(`${path}/fxmanifest.lua`, "utf8", function (err, data) {
-            if (err) {
-              return console.log(err);
-            }
-            data += `\n
+          inquirer
+            .prompt([
+              {
+                type: "list",
+                name: "type",
+                message: "What language do you want to use for the UI?",
+                choices: ["Javascript", "Typescript"],
+              },
+            ])
+            .then(async (answers2) => {
+              const type = answers2.type == "Javascript" ? "js" : "ts";
+
+              fs.readFile(
+                `${path}/fxmanifest.lua`,
+                "utf8",
+                function (err, data) {
+                  if (err) {
+                    return console.log(err);
+                  }
+                  data += `\n
 ${uiFiles[type][uiTemplate]}
 
 ui_page "html/index.html"
-            `;
+                `;
 
-            fs.writeFile(`${path}/fxmanifest.lua`, data, function (err) {
-              if (err) return console.log(err);
+                  fs.writeFile(`${path}/fxmanifest.lua`, data, function (err) {
+                    if (err) return console.log(err);
+                  });
+                }
+              );
+
+              fse.copySync(
+                `${__dirname}/../templates/ui/${type}/${uiTemplate}`,
+                path,
+                {
+                  overwrite: true,
+                }
+              );
             });
-          });
-
-          fse.copySync(
-            `${__dirname}/../templates/ui/${type}/${uiTemplate}`,
-            path,
-            {
-              overwrite: true,
-            }
-          );
         }
       });
   } else {
