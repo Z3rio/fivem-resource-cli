@@ -276,17 +276,19 @@ ui_page "html/index.html"
                     },
                   ])
                   .then(async (answers3) => {
-                    exec(
-                      "npm install",
-                      {
-                        cwd: `${path}/src`,
-                      },
-                      function (error, stdout, stderr) {
-                        if (error) {
-                          console.error(error);
+                    if (answers3.autoinstallmodules == true) {
+                      exec(
+                        "npm install",
+                        {
+                          cwd: `${path}/src`,
+                        },
+                        function (error, stdout, stderr) {
+                          if (error) {
+                            console.error(error);
+                          }
                         }
-                      }
-                    );
+                      );
+                    }
                   });
               }
             });
