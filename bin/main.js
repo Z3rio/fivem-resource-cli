@@ -5,6 +5,7 @@ const yargs = require("yargs");
 const inquirer = require("inquirer");
 const fs = require("fs");
 const fse = require("fs-extra");
+const exec = require("child_process").exec;
 
 // VARIABLES
 const frameworks = [
@@ -30,10 +31,12 @@ const uiFrameworks = [
   {
     label: "React",
     value: "react",
+    hasNodeModules: true,
   },
   {
     label: "Vue 3.0",
     value: "vue3",
+    hasNodeModules: true,
   },
   {
     label: "Vue 2.0 (CDN)",
@@ -150,7 +153,7 @@ function getTemplateFromLabel(list, label) {
   let foundType = false;
   for (let i = 0; i < list.length; i++) {
     if (label == list[i].label) {
-      return list[i].value;
+      return list[i];
     }
   }
   return undefined;
@@ -215,11 +218,15 @@ if (yargs.argv._[0] == null || yargs.argv._[0] == undefined) {
           answers.uiTemplate
         );
 
-        fse.copySync(`${__dirname}/../templates/fivem/${fivemTemplate}`, path, {
-          overwrite: true,
-        });
+        fse.copySync(
+          `${__dirname}/../templates/fivem/${fivemTemplate.value}`,
+          path,
+          {
+            overwrite: true,
+          }
+        );
 
-        if (uiTemplate !== "none") {
+        if (uiTemplate.value !== "none") {
           inquirer
             .prompt([
               {
@@ -240,7 +247,7 @@ if (yargs.argv._[0] == null || yargs.argv._[0] == undefined) {
                     return console.log(err);
                   }
                   data += `\n
-${uiFiles[type][uiTemplate]}
+${uiFiles[type][uiTemplate.value]}
 
 ui_page "html/index.html"
                 `;
@@ -252,12 +259,36 @@ ui_page "html/index.html"
               );
 
               fse.copySync(
-                `${__dirname}/../templates/ui/${type}/${uiTemplate}`,
+                `${__dirname}/../templates/ui/${type}/${uiTemplate.value}`,
                 path,
                 {
                   overwrite: true,
                 }
               );
+
+              if (uiTemplate.hasNodeModules == true) {
+                inquirer
+                  .prompt([
+                    {
+                      type: "confirm",
+                      name: "autoinstallmodules",
+                      message: `Do you want to auto install the Node Modules for ${uiTemplate.label}?`,
+                    },
+                  ])
+                  .then(async (answers3) => {
+                    exec(
+                      "npm install",
+                      {
+                        cwd: `${path}/src`,
+                      },
+                      function (error, stdout, stderr) {
+                        if (error) {
+                          console.error(error);
+                        }
+                      }
+                    );
+                  });
+              }
             });
         }
       });
