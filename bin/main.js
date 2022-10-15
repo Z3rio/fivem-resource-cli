@@ -158,7 +158,9 @@ function getTemplateFromLabel(list, label) {
 
 // MAIN
 const options = yargs
-  .usage("Usage: fivemresource new <project_name>")
+  .usage(
+    "Usage: fivemresource new <project_name>\nTemplate list: fivemresources --templates"
+  )
   .option("templates", {
     describe: "List all templates.",
     type: "boolean",
@@ -177,7 +179,9 @@ if (yargs.argv.templates == true) {
 }
 
 if (yargs.argv._[0] == null || yargs.argv._[0] == undefined) {
-  console.log("Usage: fivemresource new <template_name>");
+  console.log(
+    "Usage: fivemresource new <template_name>\nTemplate list: fivemresources --templates"
+  );
 } else {
   if (yargs.argv._[0].toLowerCase() == "new") {
     inquirer
