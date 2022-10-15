@@ -44,7 +44,7 @@ const uiFrameworks = [
     value: "default",
   },
   {
-    label: "Jquery",
+    label: "jQuery",
     value: "jquery",
   },
   // TODO: Add more UI frameworks
