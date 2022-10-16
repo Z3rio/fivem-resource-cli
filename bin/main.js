@@ -170,7 +170,7 @@ const options = yargs
   .help(true).argv;
 
 if (yargs.argv.templates == true) {
-  let formattedTemplates = templates.reduce((acc, { label, ...x }) => {
+  let formattedTemplates = frameworks.reduce((acc, { label, ...x }) => {
     acc[label] = x;
     return acc;
   }, {});
