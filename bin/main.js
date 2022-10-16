@@ -170,131 +170,143 @@ const options = yargs
   .help(true).argv;
 
 if (yargs.argv.templates == true) {
-  let formattedTemplates = frameworks.reduce((acc, { label, ...x }) => {
+  let formattedFiveMTemplates = frameworks.reduce((acc, { label, ...x }) => {
     acc[label] = x;
     return acc;
   }, {});
 
-  console.log("Available templates: \n");
-  console.table(formattedTemplates);
-}
+  let formattedUITemplates = uiFrameworks.reduce((acc, { label, ...x }) => {
+    acc[label] = x;
+    return acc;
+  }, {});
 
-if (yargs.argv._[0] == null || yargs.argv._[0] == undefined) {
-  console.log(
-    "Usage: fivemresource new\nTemplate list: fivemresources --templates"
-  );
+  console.log("Available FiveM templates:");
+  console.table(formattedFiveMTemplates);
+
+  console.log("Available UI templates:");
+  console.table(formattedUITemplates);
 } else {
-  if (yargs.argv._[0].toLowerCase() == "new") {
-    inquirer
-      .prompt([
-        {
-          type: "input",
-          name: "name",
-          message: "Project folder name (leave blank for local folder)",
-        },
-        {
-          type: "list",
-          name: "fivemFramework",
-          message: "What FiveM framework do you want to use?",
-          choices: fivemFrameworkChoices,
-        },
-        {
-          type: "list",
-          name: "uiTemplate",
-          message: "What UI framework do you want to use?",
-          choices: uiFrameworkChoices,
-        },
-      ])
-      .then(async (answers) => {
-        const path = answers.name !== undefined ? "./" + answers.name : "./";
-        const fivemTemplate = getTemplateFromLabel(
-          frameworks,
-          answers.fivemFramework
-        );
-        const uiTemplate = getTemplateFromLabel(
-          uiFrameworks,
-          answers.uiTemplate
-        );
-
-        fse.copySync(
-          `${__dirname}/../templates/fivem/${fivemTemplate.value}`,
-          path,
-          {
-            overwrite: true,
-          }
-        );
-
-        if (uiTemplate.value !== "none") {
-          inquirer
-            .prompt([
-              {
-                type: "list",
-                name: "type",
-                message: "What language do you want to use for the UI?",
-                choices: ["Javascript", "Typescript"],
-              },
-            ])
-            .then(async (answers2) => {
-              const type = answers2.type == "Javascript" ? "js" : "ts";
-
-              fs.readFile(
-                `${path}/fxmanifest.lua`,
-                "utf8",
-                function (err, data) {
-                  if (err) {
-                    return console.log(err);
-                  }
-                  data += `\n
-${uiFiles[type][uiTemplate.value]}
-
-ui_page "html/index.html"
-                `;
-
-                  fs.writeFile(`${path}/fxmanifest.lua`, data, function (err) {
-                    if (err) return console.log(err);
-                  });
-                }
-              );
-
-              fse.copySync(
-                `${__dirname}/../templates/ui/${type}/${uiTemplate.value}`,
-                path,
-                {
-                  overwrite: true,
-                }
-              );
-
-              if (uiTemplate.hasNodeModules == true) {
-                inquirer
-                  .prompt([
-                    {
-                      type: "confirm",
-                      name: "autoinstallmodules",
-                      message: `Do you want to auto install the Node Modules for ${uiTemplate.label}?`,
-                    },
-                  ])
-                  .then(async (answers3) => {
-                    if (answers3.autoinstallmodules == true) {
-                      exec(
-                        "npm install",
-                        {
-                          cwd: `${path}/src`,
-                        },
-                        function (error, stdout, stderr) {
-                          if (error) {
-                            console.error(error);
-                          }
-                        }
-                      );
-                    }
-                  });
-              }
-            });
-        }
-      });
-  } else {
+  if (yargs.argv._[0] == null || yargs.argv._[0] == undefined) {
     console.log(
-      "Invalid usage, you have to enter a valid folder / project name.\nfivemresource new <project_name>"
+      "Usage: fivemresource new\nTemplate list: fivemresources --templates"
     );
+  } else {
+    if (yargs.argv._[0].toLowerCase() == "new") {
+      inquirer
+        .prompt([
+          {
+            type: "input",
+            name: "name",
+            message: "Project folder name (leave blank for local folder)",
+          },
+          {
+            type: "list",
+            name: "fivemFramework",
+            message: "What FiveM framework do you want to use?",
+            choices: fivemFrameworkChoices,
+          },
+          {
+            type: "list",
+            name: "uiTemplate",
+            message: "What UI framework do you want to use?",
+            choices: uiFrameworkChoices,
+          },
+        ])
+        .then(async (answers) => {
+          const path = answers.name !== undefined ? "./" + answers.name : "./";
+          const fivemTemplate = getTemplateFromLabel(
+            frameworks,
+            answers.fivemFramework
+          );
+          const uiTemplate = getTemplateFromLabel(
+            uiFrameworks,
+            answers.uiTemplate
+          );
+
+          fse.copySync(
+            `${__dirname}/../templates/fivem/${fivemTemplate.value}`,
+            path,
+            {
+              overwrite: true,
+            }
+          );
+
+          if (uiTemplate.value !== "none") {
+            inquirer
+              .prompt([
+                {
+                  type: "list",
+                  name: "type",
+                  message: "What language do you want to use for the UI?",
+                  choices: ["Javascript", "Typescript"],
+                },
+              ])
+              .then(async (answers2) => {
+                const type = answers2.type == "Javascript" ? "js" : "ts";
+
+                fs.readFile(
+                  `${path}/fxmanifest.lua`,
+                  "utf8",
+                  function (err, data) {
+                    if (err) {
+                      return console.log(err);
+                    }
+                    data += `\n
+  ${uiFiles[type][uiTemplate.value]}
+  
+  ui_page "html/index.html"
+                  `;
+
+                    fs.writeFile(
+                      `${path}/fxmanifest.lua`,
+                      data,
+                      function (err) {
+                        if (err) return console.log(err);
+                      }
+                    );
+                  }
+                );
+
+                fse.copySync(
+                  `${__dirname}/../templates/ui/${type}/${uiTemplate.value}`,
+                  path,
+                  {
+                    overwrite: true,
+                  }
+                );
+
+                if (uiTemplate.hasNodeModules == true) {
+                  inquirer
+                    .prompt([
+                      {
+                        type: "confirm",
+                        name: "autoinstallmodules",
+                        message: `Do you want to auto install the Node Modules for ${uiTemplate.label}?`,
+                      },
+                    ])
+                    .then(async (answers3) => {
+                      if (answers3.autoinstallmodules == true) {
+                        exec(
+                          "npm install",
+                          {
+                            cwd: `${path}/src`,
+                          },
+                          function (error, stdout, stderr) {
+                            if (error) {
+                              console.error(error);
+                            }
+                          }
+                        );
+                      }
+                    });
+                }
+              });
+          }
+        });
+    } else {
+      console.log(
+        "Invalid usage, you have to enter a valid folder / project name.\nfivemresource new <project_name>"
+      );
+    }
   }
 }
