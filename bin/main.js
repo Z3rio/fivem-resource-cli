@@ -4,7 +4,7 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
 const fse = require("fs-extra");
-const exec = require("child_process").exec;
+const { spawn } = require("node:child_process");
 
 // VARIABLES
 const frameworks = [
@@ -251,17 +251,11 @@ ui_page "html/index.html"
                   ])
                   .then(async (answers3) => {
                     if (answers3.autoinstallmodules == true) {
-                      exec(
-                        "npm install",
-                        {
-                          cwd: `${path}/src`,
-                        },
-                        function (error, stdout, stderr) {
-                          if (error) {
-                            console.error(error);
-                          }
-                        }
-                      );
+                      spawn("npm install", {
+                        stdio: "inherit",
+                        shell: true,
+                        cwd: `${path}/src`,
+                      });
                     }
                   });
               }
