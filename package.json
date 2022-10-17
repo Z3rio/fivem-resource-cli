@@ -1,6 +1,6 @@
 {
   "name": "fivem-resource-cli",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "This is a FiveM resource CLI made to make it easier for people to create their own resources.",
   "main": "bin/main.js",
   "bin": {
@@ -31,7 +31,6 @@
     "child_process": "^1.0.2",
     "fs": "^0.0.2",
     "fs-extra": "^10.1.0",
-    "inquirer": "^8.2.4",
-    "yargs": "^17.6.0"
+    "inquirer": "^8.2.4"
   }
 }
