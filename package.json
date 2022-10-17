@@ -28,7 +28,6 @@
   },
   "homepage": "https://github.com/Z3rio/fivem-resource-cli#readme",
   "dependencies": {
-    "child_process": "^1.0.2",
     "fs": "^0.0.2",
     "fs-extra": "^10.1.0",
     "inquirer": "^8.2.4"
