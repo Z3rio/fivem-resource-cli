@@ -1,7 +1,6 @@
 #! /usr/bin/env node
 
 // IMPORTS
-const yargs = require("yargs");
 const inquirer = require("inquirer");
 const fs = require("fs");
 const fse = require("fs-extra");
@@ -160,153 +159,141 @@ function getTemplateFromLabel(list, label) {
 }
 
 // MAIN
-const options = yargs
-  .usage("Usage: fivemresource new\nTemplate list: fivemresources --templates")
-  .option("templates", {
-    describe: "List all templates.",
-    type: "boolean",
-    demandOption: false,
-  })
-  .help(true).argv;
+switch (process.argv.slice(2)[0]) {
+  case "new":
+    inquirer
+      .prompt([
+        {
+          type: "input",
+          name: "name",
+          message: "Project folder name (leave blank for local folder)",
+        },
+        {
+          type: "list",
+          name: "fivemFramework",
+          message: "What FiveM framework do you want to use?",
+          choices: fivemFrameworkChoices,
+        },
+        {
+          type: "list",
+          name: "uiTemplate",
+          message: "What UI framework do you want to use?",
+          choices: uiFrameworkChoices,
+        },
+      ])
+      .then(async (answers) => {
+        const path = answers.name !== undefined ? "./" + answers.name : "./";
+        const fivemTemplate = getTemplateFromLabel(
+          frameworks,
+          answers.fivemFramework
+        );
+        const uiTemplate = getTemplateFromLabel(
+          uiFrameworks,
+          answers.uiTemplate
+        );
 
-if (yargs.argv.templates == true) {
-  let formattedFiveMTemplates = frameworks.reduce((acc, { label, ...x }) => {
-    acc[label] = x;
-    return acc;
-  }, {});
+        fse.copySync(
+          `${__dirname}/../templates/fivem/${fivemTemplate.value}`,
+          path,
+          {
+            overwrite: true,
+          }
+        );
 
-  let formattedUITemplates = uiFrameworks.reduce((acc, { label, ...x }) => {
-    acc[label] = x;
-    return acc;
-  }, {});
+        if (uiTemplate.value !== "none") {
+          inquirer
+            .prompt([
+              {
+                type: "list",
+                name: "type",
+                message: "What language do you want to use for the UI?",
+                choices: ["Javascript", "Typescript"],
+              },
+            ])
+            .then(async (answers2) => {
+              const type = answers2.type == "Javascript" ? "js" : "ts";
 
-  console.log("Available FiveM templates:");
-  console.table(formattedFiveMTemplates);
+              fs.readFile(
+                `${path}/fxmanifest.lua`,
+                "utf8",
+                function (err, data) {
+                  if (err) {
+                    return console.log(err);
+                  }
+                  data += `\n
+${uiFiles[type][uiTemplate.value]}
 
-  console.log("Available UI templates:");
-  console.table(formattedUITemplates);
-} else {
-  if (yargs.argv._[0] == null || yargs.argv._[0] == undefined) {
+ui_page "html/index.html"
+                  `;
+
+                  fs.writeFile(`${path}/fxmanifest.lua`, data, function (err) {
+                    if (err) return console.log(err);
+                  });
+                }
+              );
+
+              fse.copySync(
+                `${__dirname}/../templates/ui/${type}/${uiTemplate.value}`,
+                path,
+                {
+                  overwrite: true,
+                }
+              );
+
+              if (uiTemplate.hasNodeModules == true) {
+                inquirer
+                  .prompt([
+                    {
+                      type: "confirm",
+                      name: "autoinstallmodules",
+                      message: `Do you want to auto install the Node Modules for ${uiTemplate.label}?`,
+                    },
+                  ])
+                  .then(async (answers3) => {
+                    if (answers3.autoinstallmodules == true) {
+                      exec(
+                        "npm install",
+                        {
+                          cwd: `${path}/src`,
+                        },
+                        function (error, stdout, stderr) {
+                          if (error) {
+                            console.error(error);
+                          }
+                        }
+                      );
+                    }
+                  });
+              }
+            });
+        }
+      });
+    break;
+  case "--templates":
+    let formattedFiveMTemplates = frameworks.reduce((acc, { label, ...x }) => {
+      acc[label] = x;
+      return acc;
+    }, {});
+
+    let formattedUITemplates = uiFrameworks.reduce((acc, { label, ...x }) => {
+      acc[label] = x;
+      return acc;
+    }, {});
+
+    console.log("Available FiveM templates:");
+    console.table(formattedFiveMTemplates);
+
+    console.log("Available UI templates:");
+    console.table(formattedUITemplates);
+    break;
+  case null || undefined || "--help":
     console.log(
       "Usage: fivemresource new\nTemplate list: fivemresources --templates"
     );
-  } else {
-    if (yargs.argv._[0].toLowerCase() == "new") {
-      inquirer
-        .prompt([
-          {
-            type: "input",
-            name: "name",
-            message: "Project folder name (leave blank for local folder)",
-          },
-          {
-            type: "list",
-            name: "fivemFramework",
-            message: "What FiveM framework do you want to use?",
-            choices: fivemFrameworkChoices,
-          },
-          {
-            type: "list",
-            name: "uiTemplate",
-            message: "What UI framework do you want to use?",
-            choices: uiFrameworkChoices,
-          },
-        ])
-        .then(async (answers) => {
-          const path = answers.name !== undefined ? "./" + answers.name : "./";
-          const fivemTemplate = getTemplateFromLabel(
-            frameworks,
-            answers.fivemFramework
-          );
-          const uiTemplate = getTemplateFromLabel(
-            uiFrameworks,
-            answers.uiTemplate
-          );
-
-          fse.copySync(
-            `${__dirname}/../templates/fivem/${fivemTemplate.value}`,
-            path,
-            {
-              overwrite: true,
-            }
-          );
-
-          if (uiTemplate.value !== "none") {
-            inquirer
-              .prompt([
-                {
-                  type: "list",
-                  name: "type",
-                  message: "What language do you want to use for the UI?",
-                  choices: ["Javascript", "Typescript"],
-                },
-              ])
-              .then(async (answers2) => {
-                const type = answers2.type == "Javascript" ? "js" : "ts";
-
-                fs.readFile(
-                  `${path}/fxmanifest.lua`,
-                  "utf8",
-                  function (err, data) {
-                    if (err) {
-                      return console.log(err);
-                    }
-                    data += `\n
-  ${uiFiles[type][uiTemplate.value]}
-  
-  ui_page "html/index.html"
-                  `;
-
-                    fs.writeFile(
-                      `${path}/fxmanifest.lua`,
-                      data,
-                      function (err) {
-                        if (err) return console.log(err);
-                      }
-                    );
-                  }
-                );
-
-                fse.copySync(
-                  `${__dirname}/../templates/ui/${type}/${uiTemplate.value}`,
-                  path,
-                  {
-                    overwrite: true,
-                  }
-                );
-
-                if (uiTemplate.hasNodeModules == true) {
-                  inquirer
-                    .prompt([
-                      {
-                        type: "confirm",
-                        name: "autoinstallmodules",
-                        message: `Do you want to auto install the Node Modules for ${uiTemplate.label}?`,
-                      },
-                    ])
-                    .then(async (answers3) => {
-                      if (answers3.autoinstallmodules == true) {
-                        exec(
-                          "npm install",
-                          {
-                            cwd: `${path}/src`,
-                          },
-                          function (error, stdout, stderr) {
-                            if (error) {
-                              console.error(error);
-                            }
-                          }
-                        );
-                      }
-                    });
-                }
-              });
-          }
-        });
-    } else {
-      console.log(
-        "Invalid usage, you have to enter a valid folder / project name.\nfivemresource new <project_name>"
-      );
-    }
-  }
+    break;
+  default:
+    console.log(
+      "Invalid usage, you have to entered an invalid action.\nfivemresource new"
+    );
+    break;
 }
