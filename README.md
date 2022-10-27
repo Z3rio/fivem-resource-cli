@@ -41,7 +41,7 @@ Then you can use vue / react etc as normal building using `npm run build` and su
 
 - No UI
 - No framework
-- [Vue 3.0](https://jquery.com/)
-- [Vue 2.0 / CDN](https://vuejs.org/)
+- [Vue 3.0](https://vuejs.org/)
+- [Vue 2.0 / CDN](https://v2.vuejs.org/)
 - [JQuery](https://jquery.com/)
 - [React](https://reactjs.org/)
