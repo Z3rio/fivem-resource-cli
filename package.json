@@ -30,6 +30,6 @@
   "dependencies": {
     "fs": "^0.0.2",
     "fs-extra": "^10.1.0",
-    "inquirer": "^8.2.4"
+    "inquirer": "^8.2.5"
   }
 }
