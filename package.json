@@ -1,6 +1,6 @@
 {
   "name": "fivem-resource-cli",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "This is a FiveM resource CLI made to make it easier for people to create their own resources.",
   "main": "bin/main.js",
   "bin": {
