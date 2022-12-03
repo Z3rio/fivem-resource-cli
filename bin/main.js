@@ -38,8 +38,14 @@ const uiFrameworks = [
     hasNodeModules: true,
   },
   {
+    label: "Vue 3.0 (CDN)",
+    value: "vue3_cdn",
+    onlyJs: true,
+  },
+  {
     label: "Vue 2.0 (CDN)",
     value: "vuecdn",
+    onlyJs: true,
   },
   {
     label: "Default",
@@ -201,13 +207,17 @@ switch (process.argv.slice(2)[0]) {
         );
 
         if (uiTemplate.value !== "none") {
+          let options = ["Javascript", "Typescript"];
+          if (uiTemplate.onlyJs == true) {
+            options = ["Javascript"];
+          }
           inquirer
             .prompt([
               {
                 type: "list",
                 name: "type",
                 message: "What language do you want to use for the UI?",
-                choices: ["Javascript", "Typescript"],
+                choices: options,
               },
             ])
             .then(async (answers2) => {

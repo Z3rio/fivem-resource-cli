@@ -6,21 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link href="style.css" rel="stylesheet" type="text/css" />
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.10/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   </head>
   <body>
     <div id="app"></div>
   </body>
 
-  <script lang="ts">
-    const viewmodel = new Vue({
-      el: "#app",
+  <script>
+    const { createApp } = Vue;
 
-      data: {},
-
-      methods: {},
-      computed: {},
-    });
+    createApp({
+      data() {
+        return {};
+      },
+    }).mount("#app");
   </script>
-  <script src="script.ts" lang="ts"></script>
+  <script src="script.js"></script>
 </html>
