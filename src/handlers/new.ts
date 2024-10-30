@@ -1,3 +1,5 @@
-export const newHandler = () => {
+const handler = () => {
 
 }
+
+export default handler

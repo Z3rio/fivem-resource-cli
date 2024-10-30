@@ -7,7 +7,7 @@
     "fivemresource": "./dist/index.js"
   },
   "scripts": {
-    "build": "npx tsc"
+    "build": "rm -rf dist && npx tsc && chmod -R 777 ."
   },
   "repository": {
     "type": "git",
@@ -30,11 +30,14 @@
   },
   "homepage": "https://github.com/Z3rio/fivem-resource-cli#readme",
   "dependencies": {
+    "@inquirer/prompts": "^7.0.1",
     "fs": "^0.0.2",
     "fs-extra": "^11.1.1",
-    "inquirer": "^9.1.5"
+    "minimist": "^1.2.8",
+    "picocolors": "^1.1.1"
   },
   "devDependencies": {
+    "@types/minimist": "^1.2.5",
     "@types/node": "^22.8.4",
     "typescript": "^5.6.3"
   }
