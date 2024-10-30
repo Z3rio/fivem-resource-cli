@@ -226,7 +226,7 @@ switch (process.argv.slice(2)[0]) {
               fs.readFile(
                 `${path}/fxmanifest.lua`,
                 "utf8",
-                function (err, data) {
+                function(err, data) {
                   if (err) {
                     return console.log(err);
                   }
@@ -236,7 +236,7 @@ ${uiFiles[type][uiTemplate.value]}
 ui_page "html/index.html"
                   `;
 
-                  fs.writeFile(`${path}/fxmanifest.lua`, data, function (err) {
+                  fs.writeFile(`${path}/fxmanifest.lua`, data, function(err) {
                     if (err) return console.log(err);
                   });
                 }
