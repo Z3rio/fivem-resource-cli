@@ -1,13 +1,10 @@
-import { FiveMTemplate } from "../../utils/types";
-import universalFiles from "../../files/fivem/universal"
-import qbcoreFiles from "../../files/fivem/qbcore"
+import { FiveMTemplate } from "../../utils/types.js";
+import universalFiles from "../../files/fivem/universal/index.js";
+import qbcoreFiles from "../../files/fivem/qbcore/index.js";
 
 const data: FiveMTemplate = {
   label: "QBCore",
-  files: [
-    ...universalFiles,
-    ...qbcoreFiles
-  ]
-}
+  files: [...universalFiles, ...qbcoreFiles]
+};
 
-export default data
+export default data;

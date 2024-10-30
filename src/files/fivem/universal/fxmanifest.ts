@@ -1,9 +1,8 @@
-import { File } from "../../../utils/types"
+import { File } from "../../../utils/types.js";
 
 const data: File = {
   name: "fxmanifest.lua",
-  content:
-    `fx_version "cerulean
+  content: `fx_version "cerulean
 game "gta5"
 
 shared_scripts {
@@ -19,6 +18,6 @@ client_scripts {
     "client/functions.lua",
     "client/main.lua"
 }`
-}
+};
 
-export default data
+export default data;

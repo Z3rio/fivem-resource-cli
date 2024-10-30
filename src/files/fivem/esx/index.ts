@@ -1,10 +1,10 @@
-import { File } from "../../../utils/types";
+import { File } from "../../../utils/types.js";
 
-import clientFunctions from "./clientFunctions"
-import clientMain from "./clientMain"
-import fxmanifest from "./fxmanifest"
-import serverFunctions from "./serverFunctions"
-import serverMain from "./serverMain"
+import clientFunctions from "./clientFunctions.js";
+import clientMain from "./clientMain.js";
+import fxmanifest from "./fxmanifest.js";
+import serverFunctions from "./serverFunctions.js";
+import serverMain from "./serverMain.js";
 
 const files: File[] = [
   clientFunctions,
@@ -12,6 +12,6 @@ const files: File[] = [
   fxmanifest,
   serverFunctions,
   serverMain
-]
+];
 
-export default files
+export default files;

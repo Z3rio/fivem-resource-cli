@@ -1,5 +1,5 @@
-import { File } from "../../../utils/types";
+import { File } from "../../../utils/types.js";
 
-const files: File[] = []
+const files: File[] = [];
 
-export default files
+export default files;

@@ -1,4 +1,4 @@
-import { File } from "../../../utils/types";
+import { File } from "../../../utils/types.js";
 
 const data: File = {
   name: "server/functions.ts",
@@ -6,6 +6,6 @@ const data: File = {
 if ESX == nil then
     TriggerEvent("esx:getSharedObject", function(obj) ESX = obj end)
 end`
-}
+};
 
-export default data
+export default data;

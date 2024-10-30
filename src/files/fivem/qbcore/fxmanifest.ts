@@ -1,8 +1,8 @@
-import { File } from "../../../utils/types";
+import { File } from "../../../utils/types.js";
 
 const data: File = {
   name: "fxmanifest.lua",
   content: ""
-}
+};
 
-export default data
+export default data;

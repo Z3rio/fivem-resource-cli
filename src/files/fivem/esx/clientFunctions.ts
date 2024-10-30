@@ -1,4 +1,4 @@
-import { File } from "../../../utils/types";
+import { File } from "../../../utils/types.js";
 
 const data: File = {
   name: "client/functions.lua",
@@ -11,6 +11,6 @@ if ESX == nil then
         end
     end)
 end`
-}
+};
 
-export default data
+export default data;

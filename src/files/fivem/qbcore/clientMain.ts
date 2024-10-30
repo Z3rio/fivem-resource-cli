@@ -1,4 +1,4 @@
-import { File } from "../../../utils/types";
+import { File } from "../../../utils/types.js";
 
 const data: File = {
   name: "client/main.lua",
@@ -32,6 +32,6 @@ RegisterNetEvent('QBCore:Client:SetDuty', function(duty)
         PlayerData = QBCore.Functions.GetPlayerData()
     end
 end)`
-}
+};
 
-export default data
+export default data;

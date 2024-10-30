@@ -1,4 +1,4 @@
-import { File } from "../../../utils/types";
+import { File } from "../../../utils/types.js";
 
 const data: File = {
   name: "client/main.lua",
@@ -9,6 +9,6 @@ RegisterNetEvent('esx:playerLoaded')
 AddEventHandler('esx:playerLoaded', function(xPlayer)
     PlayerData = xPlayer
 end)`
-}
+};
 
-export default data
+export default data;

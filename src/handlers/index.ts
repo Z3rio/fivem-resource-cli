@@ -1,3 +1,4 @@
-export * from "./new"
-export * from "./templates"
-export * from "./help"
+export * from "./new.js"
+export * from "./templates.js"
+export * from "./help.js"
+export * from "./badUsage.js"

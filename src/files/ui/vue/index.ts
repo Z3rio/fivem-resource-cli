@@ -1,8 +1,6 @@
-import { File } from "../../../utils/types";
-import fxmanifest from "./fxmanifest"
+import { File } from "../../../utils/types.js";
+import fxmanifest from "./fxmanifest.js";
 
-const files: File[] = [
-  fxmanifest
-]
+const files: File[] = [fxmanifest];
 
-export default files
+export default files;

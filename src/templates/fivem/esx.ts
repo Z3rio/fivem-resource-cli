@@ -1,13 +1,10 @@
-import { FiveMTemplate } from "../../utils/types";
-import universalFiles from "../../files/fivem/universal"
-import esxFiles from "../../files/fivem/esx"
+import { FiveMTemplate } from "../../utils/types.js";
+import universalFiles from "../../files/fivem/universal/index.js";
+import esxFiles from "../../files/fivem/esx/index.js";
 
 const data: FiveMTemplate = {
   label: "ESX",
-  files: [
-    ...universalFiles,
-    ...esxFiles
-  ]
-}
+  files: [...universalFiles, ...esxFiles]
+};
 
-export default data
+export default data;

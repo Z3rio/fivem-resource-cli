@@ -1,4 +1,4 @@
-import { File } from "../../../utils/types";
+import { File } from "../../../utils/types.js";
 
 const data: File = {
   name: "fxmanifest.lua",
@@ -10,6 +10,6 @@ const data: File = {
 
 ui_page("html/index.html") -- comment out if using dev page
 -- ui_page("http://localhost:5173") -- unncomment for dev page`
-}
+};
 
-export default data
+export default data;

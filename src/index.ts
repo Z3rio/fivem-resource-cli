@@ -1,15 +1,13 @@
-import { templatesHandler, helpHandler, newHandler } from "./handlers"
+#!/usr/bin/env node
 
-const commands: Record<string, () => void> = {
-  templates: templatesHandler,
-  help: helpHandler,
-  new: newHandler
-}
+import { badUsageHandler } from "./handlers/index.js";
+import { commands } from "./utils/data.js";
 
 const argv = process.argv.slice(2)[0]
 
 if (commands[argv]) {
   commands[argv]()
 } else {
-  commands.help();
+  badUsageHandler();
 }
+

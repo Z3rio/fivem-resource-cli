@@ -1,7 +1,7 @@
-import { UIFramework } from "../../utils/types";
+import { UIFramework } from "../../utils/types.js";
 
 const data: UIFramework = {
-  label: "No UI",
-}
+  label: "No UI"
+};
 
-export default data
+export default data;
