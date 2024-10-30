@@ -1,8 +1,11 @@
 import { UIFramework } from "../../utils/types";
+import jqueryFiles from "../../files/ui/jquery"
 
 const data: UIFramework = {
   label: "Jquery",
-  command: ""
+  files: [
+    ...jqueryFiles
+  ]
 }
 
 export default data
