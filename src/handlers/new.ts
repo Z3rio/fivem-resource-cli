@@ -135,7 +135,7 @@ const handler: CommandHandler = async () => {
 
     mkdirSync(path.join(cwd, projName))
 
-    function createFiles(data: FileList, pathList?: string[]) {
+    const createFiles = (data: FileList, pathList?: string[]) => {
       if (pathList === undefined) {
         pathList = []
       }
