@@ -10,11 +10,17 @@ const argv = minimist(process.argv.slice(2))
 const cmdName = argv._.join("_")
 const cmdPath = path.join(import.meta.dirname, "./handlers/" + cmdName + ".js")
 
-if (existsSync(cmdPath)) {
-  console.log("yes", cmdName)
-  const handler = require(cmdPath) as CommandHandler
-  handler(argv)
-} else {
-  helpHandler();
+async function main() {
+  if (existsSync(cmdPath)) {
+    const handler = await import(cmdPath) as { default: CommandHandler }
+
+    if (handler && "default" in handler) {
+      handler.default(argv)
+      return
+    }
+  }
+
+  helpHandler(argv);
 }
 
+main()

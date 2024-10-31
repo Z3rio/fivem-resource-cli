@@ -12,6 +12,7 @@ const files: File[] = [
   fxmanifest,
   serverFunctions,
   serverMain
-];
+]
+
 
 export default files;

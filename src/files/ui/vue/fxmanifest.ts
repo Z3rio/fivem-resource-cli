@@ -9,7 +9,8 @@ const data: File = {
 })
 
 ui_page("html/index.html") -- comment out if using dev page
--- ui_page("http://localhost:5173") -- unncomment for dev page`
+-- ui_page("http://localhost:5173") -- unncomment for dev page`,
+  comment: "UI"
 };
 
 export default data;

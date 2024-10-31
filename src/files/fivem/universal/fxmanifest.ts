@@ -17,7 +17,8 @@ server_scripts {
 client_scripts {
     "client/functions.lua",
     "client/main.lua"
-}`
+}`,
+  comment: "Universal"
 };
 
 export default data;

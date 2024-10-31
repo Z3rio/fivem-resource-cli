@@ -3,6 +3,7 @@ import minimist from "minimist";
 export interface File {
   name: string;
   content: string;
+  comment?: string;
 }
 
 export interface UIFramework {
@@ -13,7 +14,12 @@ export interface UIFramework {
 
 export interface FiveMTemplate {
   label: string;
-  files: File[]
+  command?: string;
+  files?: File[]
+}
+
+export type FileList = {
+  [key: string]: FileList | string
 }
 
 export type CommandHandler = (args: minimist.ParsedArgs) => void

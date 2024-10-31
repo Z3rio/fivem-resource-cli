@@ -6,11 +6,11 @@ import vue from "./vue.js";
 import defaultJs from "./defaultJs.js";
 
 const list: Record<string, UIFramework> = {
+  vue: vue,
+  react: react,
   defaultJs: defaultJs,
   jquery: jquery,
   none: none,
-  react: react,
-  vue: vue
 };
 
 export default list;
