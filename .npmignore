@@ -1,0 +1,12 @@
+.github
+.husky
+src
+.gitattributes
+.prettierignore
+.nvmrc
+.prettierrc
+CODE_OF_CONDUCT.md
+eslint.config.js
+tsconfig.json
+README.md
+logo.png
