@@ -30,4 +30,4 @@ jobs:
         if: steps.node-modules-cache.outputs.cache-hit != 'true'
         run: pnpm install --no-frozen-lockfile
       - name: Run linting
-        run: pnpm lint
+        run: pnpm format:check
