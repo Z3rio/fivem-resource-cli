@@ -136,3 +136,6 @@ yarn.lock
 # built files
 bin
 dist
+
+# macos file system
+.DS_Store
