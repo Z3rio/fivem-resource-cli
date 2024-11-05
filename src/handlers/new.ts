@@ -1,11 +1,12 @@
 import { CommandHandler } from "../utils/types.js"
-import { select, input } from '@inquirer/prompts';
+import { select, input, checkbox, confirm } from '@inquirer/prompts';
 import uiTemplates from "../templates/ui/index.js";
 import fivemTemplates from "../templates/fivem/index.js";
 import pc from "picocolors"
-import { existsSync, mkdirSync } from "fs";
+import { existsSync, mkdirSync, rmdirSync } from "fs";
 import path from "path";
 import { handleActions } from "../utils/functions.js";
+import addonData from "../files/fivem/addons/index.js"
 
 interface Choice {
   name: string;
@@ -29,7 +30,15 @@ const handler: CommandHandler = async () => {
     const projPath = path.join(cwd, projName)
     if (existsSync(projPath)) {
       console.warn("\n" + pc.redBright(`A folder with the name ${pc.italic(projName)} already exists in your current working directory`))
-      return
+
+      const removeOldDir = await confirm({ message: 'Do you wish to delete this and continue?' });
+
+      if (removeOldDir === true) {
+        rmdirSync(projPath)
+        console.info("")
+      } else {
+        return
+      }
     }
 
     const fivemChoices: Choice[] = []
@@ -85,10 +94,37 @@ const handler: CommandHandler = async () => {
       })
     }
 
+    const addonChoices = await checkbox({
+      message: 'Select a package manager',
+      choices: addonData.map((v) => ({
+        name: v.label,
+        value: v.name,
+        checked: v.checkedByDefault === true
+      }))
+    });
+
     mkdirSync(projPath)
 
     handleActions(fivemTemplates[fivemFramework].actions, projPath, projName, uiLanguage)
     handleActions(uiTemplates[uiFramework].actions, projPath, projName, uiLanguage)
+    for (let i = 0; i < addonChoices.length; i++) {
+      const v = addonChoices[i]
+      const foundIdx = addonData.findIndex((v2) => v2.name === v)
+
+      if (foundIdx !== -1) {
+        handleActions(
+          [
+            {
+              type: "file",
+              list: addonData[foundIdx].files
+            },
+          ],
+          projPath,
+          projName,
+          uiLanguage
+        )
+      }
+    }
 
   } catch (err) {
     if (err !== null && err !== undefined && typeof err === "object" && !Array.isArray(err) && "name" in err && typeof err.name === "string" && err.name === "ExitPromptError") {

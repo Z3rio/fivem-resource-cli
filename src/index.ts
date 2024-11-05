@@ -26,6 +26,10 @@ async function main() {
 main()
 
 // todo: add progress bars / nicer looking prints
-// todo: configs & translations
+// todo: version checking structure, perhaps?
 // todo: setup strict linting
 // todo: setup gitignore in new projects
+// todo: setup auto publishing of npm pkg, if applicable.
+//       alternatively, manual bash/pwsh script for it, atleast
+// todo: add support for creating project with both esx & qbcore support
+// todo: add support for merging client_script files, and so on

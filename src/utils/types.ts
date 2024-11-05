@@ -1,5 +1,12 @@
 import minimist from "minimist";
 
+export interface Addon {
+  label: string;
+  files: File[];
+  name: string;
+  checkedByDefault?: boolean
+}
+
 export interface File {
   name: string;
   content: string;

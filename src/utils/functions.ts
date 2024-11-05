@@ -22,7 +22,6 @@ export const actionList: Record<string, QuickAction> = {
       ...viteCfgAdjustmentLines,
       ...lines.slice(dataStart, lines.length)
     ]
-    console.log("finalLines", finalLines)
 
     writeFileSync(viteCfgFileName, finalLines.join("\r\n"))
 
@@ -67,7 +66,7 @@ export function convertFiles(files: File[]): FileList {
         if (!(v2 in curr) || (typeof curr[v2] === "string" && curr[v2].trim().length === 0)) {
           curr[v2] = content
         } else {
-          curr[v2] = curr[v2] + "\n\n" + content
+          curr[v2] = curr[v2] + "\r\n\r\n" + content
         }
       } else if (!(v2 in curr)) {
         curr[v2] = {}
@@ -127,7 +126,11 @@ export function createFiles(data: FileList, projPath: string, projName: string, 
   for (const key in data) {
     if (typeof data[key] === "string") {
       console.info(`Creating file: ./${projName}/${pathList.length > 0 ? `${pathList.join("/")}/` : ""}${key}`)
-      writeFileSync(path.join(projPath, ...pathList, key), data[key])
+      const filePath = path.join(projPath, ...pathList, key)
+      if (existsSync(filePath)) {
+        data[key] = readFileSync(filePath) + "\r\n\r\n" + data[key]
+      }
+      writeFileSync(filePath, data[key])
     } else {
       const dirPath = path.join(projPath, ...pathList, key)
 
