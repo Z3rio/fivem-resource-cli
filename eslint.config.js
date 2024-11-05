@@ -5,7 +5,14 @@ import tseslint from "typescript-eslint";
 /** @type {import('eslint').Linter.Config[]} */
 export default [
   {
-    ignores: ["node_modules/*", "dist/*", "pnpm-lock.yaml", ".git/*", ".husky/*", ".gitattributes"]
+    ignores: [
+      "node_modules/*",
+      "dist/*",
+      "pnpm-lock.yaml",
+      ".git/*",
+      ".husky/*",
+      ".gitattributes"
+    ]
   },
   {
     files: ["**/*.{js,mjs,cjs,ts}"]
