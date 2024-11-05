@@ -17,9 +17,5 @@ async function main() {
 
 main();
 
-// todo: add progress bars / nicer looking prints
-// todo: setup strict linting
-// todo: setup auto publishing of npm pkg, if applicable.
-//       alternatively, manual bash/pwsh script for it, atleast
 // todo: add support for creating project with both esx & qbcore support
 // todo: add support for merging client_script files, and so on, luaparser?

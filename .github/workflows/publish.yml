@@ -1,0 +1,41 @@
+name: Publish to NPM
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+      - name: Set node version
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+      - name: Set pnpm version
+        uses: pnpm/action-setup@v3
+        with:
+          run_install: false
+          version: 7
+      - name: Cache node_modules
+        id: node-modules-cache
+        uses: actions/cache@v4
+        with:
+          path: "**/node_modules"
+          key: node-modules-cache-${{ hashFiles('**/pnpm-lock.yaml') }}
+      - name: Install dependencies
+        if: steps.node-modules-cache.outputs.cache-hit != 'true'
+        run: pnpm install --no-frozen-lockfile
+      - name: Build resource
+        run: pnpm build
+      - name: Set registry
+        run: npm config set registry https://registry.npmjs.org
+      - name: Set authToken
+        run: npm config set -g "//npm.pkg.github.com/:_authToken" "${{ secrets.GITHUB_TOKEN }}"
+      - name: Publish package
+        run: npm publish
