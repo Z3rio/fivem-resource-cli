@@ -45,7 +45,6 @@ PerformHttpRequest(
   }
 ];
 
-// todo: ask user about version the values above ^^
 export default {
   label: "Version Checking",
   name: "versionchecking",
