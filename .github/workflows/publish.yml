@@ -19,7 +19,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version-file: ".nvmrc"
-          registry-url: 'https://registry.npmjs.org'
+          registry-url: "https://registry.npmjs.org"
       - name: Set pnpm version
         uses: pnpm/action-setup@v3
         with:
@@ -36,11 +36,7 @@ jobs:
         run: pnpm install --no-frozen-lockfile
       - name: Build resource
         run: pnpm build
-      - name: Set registry
-        run: npm config set registry https://registry.npmjs.org
-      - name: Set authToken
-        run: npm config set -g "//npm.pkg.github.com/:_authToken" "${{ secrets.GITHUB_TOKEN }}"
       - name: Publish package
-        run: npm publish --provenance --access public
+        run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
