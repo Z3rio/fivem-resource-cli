@@ -1,12 +1,9 @@
 {
   "name": "fivem-resource-cli",
-  "version": "1.0.9",
+  "version": "2.0.0",
   "description": "This is a FiveM resource CLI made to make it easier for people to create their own resources.",
-  "main": "bin/main.js",
+  "type": "module",
   "bin": {
-<<<<<<< Updated upstream
-    "fivemresource": "./bin/main.js"
-=======
     "fivemresource": "dist/index.js",
     "frc": "dist/index.js"
   },
@@ -18,9 +15,7 @@
     "lint:write": "pnpm format:write",
     "prepare": "husky",
     "preinstall": "npx only-allow pnpm"
->>>>>>> Stashed changes
   },
-  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Z3rio/fivem-resource-cli.git"
@@ -35,15 +30,29 @@
     "svelte",
     "vue"
   ],
-  "author": "Zerio#0880",
+  "author": "Zerio",
   "license": "GPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/Z3rio/fivem-resource-cli/issues"
   },
   "homepage": "https://github.com/Z3rio/fivem-resource-cli#readme",
   "dependencies": {
-    "fs": "^0.0.2",
-    "inquirer": "^9.1.5"
-    "fs-extra": "^11.1.1",
+    "@inquirer/prompts": "^7.0.1",
+    "minimist": "^1.2.8",
+    "picocolors": "^1.1.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.14.0",
+    "@types/cli-progress": "^3.11.6",
+    "@types/minimist": "^1.2.5",
+    "@types/node": "^22.8.4",
+    "@typescript-eslint/eslint-plugin": "^8.13.0",
+    "@typescript-eslint/parser": "^8.13.0",
+    "eslint": "^9.14.0",
+    "globals": "^15.12.0",
+    "husky": "^9.1.6",
+    "prettier": "^3.3.3",
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.13.0"
   }
 }
