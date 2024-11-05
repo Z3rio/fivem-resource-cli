@@ -17,6 +17,6 @@ async function main() {
 
 main();
 
-// todo: setup files for defaultJs/jquery UI
+// todo: perhaps further addons such as pinia, etc, should be configurable
 // todo: add support for creating project with both esx & qbcore support
 // todo: add support for merging client_script files, and so on, luaparser?
