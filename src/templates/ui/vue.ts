@@ -11,7 +11,8 @@ const data: UIFramework = {
           js: "npm create vite@latest ui -- --template vue",
           ts: "npm create vite@latest ui -- --template vue-ts",
         }
-      ]
+      ],
+      quiet: true
     },
     {
       type: "file",

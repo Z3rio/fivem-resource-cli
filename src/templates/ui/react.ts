@@ -11,7 +11,8 @@ const data: UIFramework = {
           js: "npm create vite@latest ui -- --template react",
           ts: "npm create vite@latest ui -- --template react-ts",
         }
-      ]
+      ],
+      quiet: true
     },
     {
       type: "file",

@@ -91,12 +91,12 @@ export async function handleActions(actions: Action[], projPath: string, projNam
           if (typeof v2 == "string") {
             execSync(v2, {
               cwd: projPath,
-              ...verboseExecSettings
+              ...(v.quiet !== true ? verboseExecSettings : {})
             })
           } else if (uiLanguage !== undefined) {
             execSync(v2[uiLanguage], {
               cwd: projPath,
-              ...verboseExecSettings
+              ...(v.quiet !== true ? verboseExecSettings : {})
             })
           }
         }

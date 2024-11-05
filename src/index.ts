@@ -26,7 +26,6 @@ async function main() {
 main()
 
 // todo: add progress bars / nicer looking prints
-// todo: version checking structure, perhaps?
 // todo: setup strict linting
 // todo: setup gitignore in new projects
 // todo: setup auto publishing of npm pkg, if applicable.

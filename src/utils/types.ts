@@ -24,7 +24,8 @@ export type Action = {
   list: Array<string | {
     js: string
     ts: string
-  }>
+  }>;
+  quiet?: boolean;
 } | {
   type: "file",
   list: File[]
