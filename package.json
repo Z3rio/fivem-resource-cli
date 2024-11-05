@@ -4,7 +4,21 @@
   "description": "This is a FiveM resource CLI made to make it easier for people to create their own resources.",
   "main": "bin/main.js",
   "bin": {
+<<<<<<< Updated upstream
     "fivemresource": "./bin/main.js"
+=======
+    "fivemresource": "dist/index.js",
+    "frc": "dist/index.js"
+  },
+  "scripts": {
+    "build": "rm -rf dist && npx tsc && chmod -R 777 .",
+    "format:check": "eslint && prettier -c .",
+    "format:write": "eslint --fix && prettier -w .",
+    "lint:check": "pnpm format:check",
+    "lint:write": "pnpm format:write",
+    "prepare": "husky",
+    "preinstall": "npx only-allow pnpm"
+>>>>>>> Stashed changes
   },
   "scripts": {},
   "repository": {
