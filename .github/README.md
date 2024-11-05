@@ -2,32 +2,27 @@
 
 # FiveM Resource CLI
 
-This is a FiveM resource CLI made to make it easier for people to create their own resources.<br>
-You can pick any of the popular fivem frameworks and ui frameworks and the CLI will setup a boilerplate resource for you.<br>
 [**NPM Package Link**](https://www.npmjs.com/package/fivem-resource-cli)
+
+This is a Command Line Interface made to make it easier for you to create a new FiveM resource.<br>
+You can pick between any of the popular FiveM/UI frameworks out there and the CLI will set up a boilerplate resource for you.<br>
 
 # Installation
 
-Run `npm install -g fivem-resource-cli` in a console window.
+Run `npm install -g fivem-resource-cli` in a console/terminal.
 
 # Usage
 
-To use this CLI, run `fivemresource new` in any command window.<br>
-If you are going to use any UI framework such as VUE, go into the recently created resource folder and then open the command line in the `src` folder and run `npm install`.<br>
-Then you can use vue / react etc as normal building using `npm run build` and such.
+To create a new resource:
+
+- Run `frc new` (or `fivemresource new`) in any console/terminal
+- If you chose to use an actual ui **framework**, such as Vue/React, run `npm install` in the `ui` folder of the project after creating a new project
+- Then you will be able to use Vue/React as normal. Building would be done by `npm run build`, and so on
 
 ## Requirements
 
 - [Node.js](https://nodejs.org/en/)
 - A FiveM server if you actually want to use the files generated from this CLI.
-
-## Technologies used
-
-- [fs](https://www.npmjs.com/package/fs) & [fs-extra](https://www.npmjs.com/package/fs-extra) for filesystem handling
-- [inquirer](https://www.npmjs.com/package/inquirer) for prompt / input handling
-- All UI frameworks use [Vite](https://vitejs.dev/) for building
-
-<br>
 
 # FiveM Boilerplate types
 
@@ -37,12 +32,8 @@ Then you can use vue / react etc as normal building using `npm run build` and su
 
 # UI Boilerplate types
 
-(All boilerplates have a JS & TS version)
-
+- [Vue 3.0 (JS & TS)](https://vuejs.org/)
+- [React (JS & TS)](https://reactjs.org/)
+- [JQuery (JS)](https://jquery.com/)
+- No framework / Standard JS
 - No UI
-- No framework
-- [Vue 3.0](https://vuejs.org/)
-- [Vue 3.0 (CDN)](https://vuejs.org/)
-- [Vue 2.0 (CDN)](https://v2.vuejs.org/)
-- [JQuery](https://jquery.com/)
-- [React](https://reactjs.org/)
