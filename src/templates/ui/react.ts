@@ -3,7 +3,10 @@ import reactFiles from "../../files/ui/react/index.js";
 
 const data: UIFramework = {
   label: "React",
-  command: "npm create vite@latest ui -- --template react",
+  commands: {
+    js: "npm create vite@latest ui -- --template react",
+    ts: "npm create vite@latest ui -- --template react-ts",
+  },
   files: [...reactFiles]
 };
 

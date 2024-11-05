@@ -66,7 +66,7 @@ const handler: CommandHandler = async () => {
       choices: uiChoices
     });
 
-    const uiLanguage = await select({
+    const uiLanguage = await select<"ts" | "js">({
       message: "Select ui language",
       choices: [
         {
@@ -79,9 +79,6 @@ const handler: CommandHandler = async () => {
         }
       ]
     })
-
-    // todo: handle ui language
-    void uiLanguage
 
     const rawFiles: File[] = [
       ...(fivemTemplates[fivemFramework].files ?? []),
@@ -161,9 +158,9 @@ const handler: CommandHandler = async () => {
       })
     }
 
-    if (uiTemplates[uiFramework].command !== undefined) {
+    if (uiTemplates[uiFramework].commands !== undefined) {
       console.info("Executing command for ui template")
-      execSync(uiTemplates[uiFramework].command, {
+      execSync(uiTemplates[uiFramework].commands[uiLanguage], {
         cwd: cwd,
         ...verboseExecSettings
       })

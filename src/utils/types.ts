@@ -8,7 +8,10 @@ export interface File {
 
 export interface UIFramework {
   label: string;
-  command?: string;
+  commands?: {
+    js: string;
+    ts: string;
+  }
   files?: File[]
 }
 

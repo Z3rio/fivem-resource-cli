@@ -24,3 +24,6 @@ async function main() {
 }
 
 main()
+
+// todo: handle update of vite cfg, and so on, to fit fivem.
+//       should be done AFTER creation of ui files

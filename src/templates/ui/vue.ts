@@ -3,7 +3,10 @@ import vueFiles from "../../files/ui/vue/index.js";
 
 const data: UIFramework = {
   label: "Vue",
-  command: "npm create vite@latest ui -- --template vue",
+  commands: {
+    js: "npm create vite@latest ui -- --template vue",
+    ts: "npm create vite@latest ui -- --template vue-ts",
+  },
   files: [...vueFiles]
 };
 
