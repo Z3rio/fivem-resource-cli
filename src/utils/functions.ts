@@ -4,6 +4,7 @@ import { Action, File, FileList, QuickAction } from "./types.js"
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs"
 import path from "path"
 import pc from "picocolors"
+import { input } from "@inquirer/prompts"
 
 export const actionList: Record<string, QuickAction> = {
   refactorViteCfg: ({ projPath, uiLanguage }) => {
@@ -57,16 +58,16 @@ export function convertFiles(files: File[]): FileList {
       for (let i3 = 0; i3 < pastPathChecks.length; i3++) {
         const v3 = curr[pastPathChecks[i3]]
 
-        if (typeof v3 !== "string") {
+        if (!("name" in v3)) {
           curr = v3
         }
       }
 
       if (i2 + 1 === pathSplits.length) {
-        if (!(v2 in curr) || (typeof curr[v2] === "string" && curr[v2].trim().length === 0)) {
-          curr[v2] = content
+        if (!(v2 in curr) || ("content" in curr[v2] && typeof curr[v2].content === "string" && curr[v2].content.trim().length === 0)) {
+          curr[v2] = v
         } else {
-          curr[v2] = curr[v2] + "\r\n\r\n" + content
+          curr[v2].content = curr[v2].content + "\r\n\r\n" + content
         }
       } else if (!(v2 in curr)) {
         curr[v2] = {}
@@ -79,7 +80,7 @@ export function convertFiles(files: File[]): FileList {
   return retVal
 }
 
-export function handleActions(actions: Action[], projPath: string, projName: string, uiLanguage: undefined | "js" | "ts") {
+export async function handleActions(actions: Action[], projPath: string, projName: string, uiLanguage: undefined | "js" | "ts") {
   for (let i = 0; i < actions.length; i++) {
     const v = actions[i]
 
@@ -101,7 +102,7 @@ export function handleActions(actions: Action[], projPath: string, projName: str
         }
         break;
       case "file":
-        createFiles(convertFiles(v.list), projPath, projName)
+        await createFiles(convertFiles(v.list), projPath, projName)
         break;
       case "action":
         if (v.name in actionList) {
@@ -118,26 +119,43 @@ export function handleActions(actions: Action[], projPath: string, projName: str
   }
 }
 
-export function createFiles(data: FileList, projPath: string, projName: string, pathList?: string[]) {
+export async function createFiles(data: FileList, projPath: string, projName: string, pathList?: string[]) {
   if (pathList === undefined) {
     pathList = []
   }
 
   for (const key in data) {
-    if (typeof data[key] === "string") {
+    if ("content" in data[key]) {
       console.info(`Creating file: ./${projName}/${pathList.length > 0 ? `${pathList.join("/")}/` : ""}${key}`)
       const filePath = path.join(projPath, ...pathList, key)
-      if (existsSync(filePath)) {
-        data[key] = readFileSync(filePath) + "\r\n\r\n" + data[key]
-      }
-      writeFileSync(filePath, data[key])
+
+      if (data[key])
+
+        if (typeof data[key].content === "string") {
+          if (data[key].values !== undefined && Array.isArray(data[key].values)) {
+            for (let i = 0; i < data[key].values.length; i++) {
+              const answer = await input({
+                message: `${data[key].values[i].label} for file ${pathList.join("/") + (pathList.length > 0 ? "/" : "") + key}`,
+                required: true
+              });
+
+              data[key].content = data[key].content.replaceAll(`\$\{${data[key].values[i].name}\}`, answer)
+            }
+          }
+
+          if (existsSync(filePath)) {
+            data[key].content = readFileSync(filePath) + "\r\n\r\n" + data[key]
+          }
+
+          writeFileSync(filePath, data[key].content)
+        }
     } else {
       const dirPath = path.join(projPath, ...pathList, key)
 
       if (!existsSync(dirPath)) {
         mkdirSync(dirPath)
       }
-      createFiles(data[key], projPath, projName, [...pathList, key])
+      await createFiles(data[key], projPath, projName, [...pathList, key])
     }
   }
 }

@@ -3,7 +3,7 @@ import { select, input, checkbox, confirm } from '@inquirer/prompts';
 import uiTemplates from "../templates/ui/index.js";
 import fivemTemplates from "../templates/fivem/index.js";
 import pc from "picocolors"
-import { existsSync, mkdirSync, rmdirSync } from "fs";
+import { existsSync, mkdirSync, rmSync } from "fs";
 import path from "path";
 import { handleActions } from "../utils/functions.js";
 import addonData from "../files/fivem/addons/index.js"
@@ -20,7 +20,10 @@ const handler: CommandHandler = async () => {
 
   try {
 
-    const projName = await input({ message: 'Enter the project name' });
+    const projName = await input({
+      message: 'Enter the project name',
+      required: true
+    });
 
     if (typeof projName !== "string" || projName.trim().length === 0) {
       console.warn("\n" + pc.redBright("The project name cant be empty, it will be the name of your resource folder"))
@@ -34,7 +37,9 @@ const handler: CommandHandler = async () => {
       const removeOldDir = await confirm({ message: 'Do you wish to delete this and continue?' });
 
       if (removeOldDir === true) {
-        rmdirSync(projPath)
+        rmSync(projPath, {
+          recursive: true,
+        })
         console.info("")
       } else {
         return
@@ -66,7 +71,7 @@ const handler: CommandHandler = async () => {
 
     const fivemFramework = await select({
       message: 'Select a fivem framework',
-      choices: fivemChoices
+      choices: fivemChoices,
     });
 
 
@@ -100,19 +105,20 @@ const handler: CommandHandler = async () => {
         name: v.label,
         value: v.name,
         checked: v.checkedByDefault === true
-      }))
+      })),
+      required: true
     });
 
     mkdirSync(projPath)
 
-    handleActions(fivemTemplates[fivemFramework].actions, projPath, projName, uiLanguage)
-    handleActions(uiTemplates[uiFramework].actions, projPath, projName, uiLanguage)
+    await handleActions(fivemTemplates[fivemFramework].actions, projPath, projName, uiLanguage)
+    await handleActions(uiTemplates[uiFramework].actions, projPath, projName, uiLanguage)
     for (let i = 0; i < addonChoices.length; i++) {
       const v = addonChoices[i]
       const foundIdx = addonData.findIndex((v2) => v2.name === v)
 
       if (foundIdx !== -1) {
-        handleActions(
+        await handleActions(
           [
             {
               type: "file",

@@ -11,6 +11,12 @@ export interface File {
   name: string;
   content: string;
   comment?: string;
+  values?: ContentValue[]
+}
+
+export interface ContentValue {
+  name: string;
+  label: string;
 }
 
 export type Action = {
@@ -38,7 +44,7 @@ export interface FiveMTemplate {
 }
 
 export type FileList = {
-  [key: string]: FileList | string
+  [key: string]: FileList | File
 }
 
 export type CommandHandler = (args: minimist.ParsedArgs) => void

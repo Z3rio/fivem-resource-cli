@@ -3,7 +3,7 @@ import { Addon, File } from "../../../utils/types.js";
 const files: File[] = [
   {
     name: "server/versionchecker.lua",
-    content: `local rawFileLink = "RAW LINK TO CURRENT VERSION HERE"
+    content: `local rawFileLink = "$\{rawLink}"
 local currVersion = GetResourceMetadata(GetCurrentResourceName(), "version", 0)
 if currVersion == nil then
   warn("Failed to find script version")
@@ -28,7 +28,13 @@ PerformHttpRequest(
     end
   end,
   "GET"
-)`
+)`,
+    values: [
+      {
+        name: "rawLink",
+        label: "Raw URL for Version Value"
+      }
+    ]
   },
   {
     name: "fxmanifest.lua",
