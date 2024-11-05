@@ -4,7 +4,16 @@ import qbcoreFiles from "../../files/fivem/qbcore/index.js";
 
 const data: FiveMTemplate = {
   label: "QBCore",
-  files: [...qbcoreFiles, ...universalFiles,]
+  actions: [
+    {
+      type: "file",
+      list: qbcoreFiles
+    },
+    {
+      type: "file",
+      list: universalFiles
+    }
+  ]
 };
 
 export default data;

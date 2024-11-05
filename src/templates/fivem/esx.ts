@@ -4,7 +4,16 @@ import esxFiles from "../../files/fivem/esx/index.js";
 
 const data: FiveMTemplate = {
   label: "ESX",
-  files: [...esxFiles, ...universalFiles]
+  actions: [
+    {
+      type: "file",
+      list: esxFiles
+    },
+    {
+      type: "file",
+      list: universalFiles
+    }
+  ]
 };
 
 export default data;

@@ -3,7 +3,12 @@ import jqueryFiles from "../../files/ui/jquery/index.js";
 
 const data: UIFramework = {
   label: "Jquery",
-  files: [...jqueryFiles]
+  actions: [
+    {
+      type: "file",
+      list: jqueryFiles
+    }
+  ]
 };
 
 export default data;

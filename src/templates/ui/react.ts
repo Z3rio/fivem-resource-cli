@@ -3,11 +3,21 @@ import reactFiles from "../../files/ui/react/index.js";
 
 const data: UIFramework = {
   label: "React",
-  commands: {
-    js: "npm create vite@latest ui -- --template react",
-    ts: "npm create vite@latest ui -- --template react-ts",
-  },
-  files: [...reactFiles]
+  actions: [
+    {
+      type: "command",
+      list: [
+        {
+          js: "npm create vite@latest ui -- --template react",
+          ts: "npm create vite@latest ui -- --template react-ts",
+        }
+      ]
+    },
+    {
+      type: "file",
+      list: reactFiles
+    }
+  ],
 };
 
 export default data;

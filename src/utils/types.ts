@@ -6,19 +6,25 @@ export interface File {
   comment?: string;
 }
 
+export type Action = {
+  type: "command";
+  list: Array<string | {
+    js: string
+    ts: string
+  }>
+} | {
+  type: "file",
+  list: File[]
+}
+
 export interface UIFramework {
   label: string;
-  commands?: {
-    js: string;
-    ts: string;
-  }
-  files?: File[]
+  actions: Array<Action>
 }
 
 export interface FiveMTemplate {
   label: string;
-  command?: string;
-  files?: File[]
+  actions: Array<Action>
 }
 
 export type FileList = {

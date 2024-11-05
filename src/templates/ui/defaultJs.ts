@@ -3,7 +3,12 @@ import defaultJsFiles from "../../files/ui/defaultjs/index.js";
 
 const data: UIFramework = {
   label: "Default JS",
-  files: [...defaultJsFiles]
+  actions: [
+    {
+      type: "file",
+      list: defaultJsFiles
+    }
+  ]
 };
 
 export default data;
