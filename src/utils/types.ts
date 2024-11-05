@@ -15,6 +15,9 @@ export type Action = {
 } | {
   type: "file",
   list: File[]
+} | {
+  type: "action";
+  name: string
 }
 
 export interface UIFramework {
@@ -32,3 +35,9 @@ export type FileList = {
 }
 
 export type CommandHandler = (args: minimist.ParsedArgs) => void
+
+export type QuickAction = (data: {
+  projName: string;
+  uiLanguage: "ts" | "js" | undefined;
+  projPath: string
+}) => boolean

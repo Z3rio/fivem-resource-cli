@@ -16,6 +16,10 @@ const data: UIFramework = {
     {
       type: "file",
       list: vueFiles
+    },
+    {
+      type: "action",
+      name: "refactorViteCfg"
     }
   ],
 };

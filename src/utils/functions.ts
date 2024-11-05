@@ -1,8 +1,34 @@
 import { execSync } from "child_process"
-import { commentStart, verboseExecSettings } from "./data.js"
-import { Action, File, FileList } from "./types.js"
-import { existsSync, mkdirSync, writeFileSync } from "fs"
+import { commentStart, verboseExecSettings, viteCfgAdjustmentLines } from "./data.js"
+import { Action, File, FileList, QuickAction } from "./types.js"
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs"
 import path from "path"
+import pc from "picocolors"
+
+export const actionList: Record<string, QuickAction> = {
+  refactorViteCfg: ({ projPath, uiLanguage }) => {
+    const viteCfgFileName = path.join(projPath, "ui", `vite.config.${uiLanguage ?? 'js'}`)
+    const viteData = readFileSync(viteCfgFileName)
+    const lines = viteData.toString().split(/\r?\n|\r|\n/g)
+    const dataStart = lines.findIndex((v) => v.indexOf("defineConfig") !== -1 && v.indexOf("import") === -1) + 1
+
+    if (dataStart === 0) {
+      console.warn(pc.bold("refactorViteCfg: ") + "Couldnt find defineConfig in the vite config.")
+      return false
+    }
+
+    const finalLines = [
+      ...lines.slice(0, dataStart),
+      ...viteCfgAdjustmentLines,
+      ...lines.slice(dataStart, lines.length)
+    ]
+    console.log("finalLines", finalLines)
+
+    writeFileSync(viteCfgFileName, finalLines.join("\r\n"))
+
+    return true
+  }
+}
 
 export function convertFiles(files: File[]): FileList {
   const retVal: FileList = {}
@@ -77,6 +103,17 @@ export function handleActions(actions: Action[], projPath: string, projName: str
         break;
       case "file":
         createFiles(convertFiles(v.list), projPath, projName)
+        break;
+      case "action":
+        if (v.name in actionList) {
+          actionList[v.name]({
+            projName,
+            uiLanguage,
+            projPath
+          })
+        } else {
+          console.warn(`Couldnt find action named ${pc.italic(v.name)}`)
+        }
         break;
     }
   }

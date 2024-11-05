@@ -25,8 +25,7 @@ async function main() {
 
 main()
 
-// todo: handle update of vite cfg, and so on, to fit fivem.
-//       should be done AFTER creation of ui files
 // todo: add progress bars / nicer looking prints
 // todo: configs & translations
 // todo: setup strict linting
+// todo: setup gitignore in new projects
