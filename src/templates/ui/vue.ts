@@ -7,6 +7,7 @@ const data: UIFramework = {
     {
       type: "command",
       list: [
+        "npm install -g create-vite@latest",
         {
           js: "npm create vite@latest ui -- --template vue",
           ts: "npm create vite@latest ui -- --template vue-ts",

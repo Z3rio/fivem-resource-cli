@@ -23,4 +23,3 @@ main()
 //       alternatively, manual bash/pwsh script for it, atleast
 // todo: add support for creating project with both esx & qbcore support
 // todo: add support for merging client_script files, and so on
-// todo: make sure create-vite cli is installed
