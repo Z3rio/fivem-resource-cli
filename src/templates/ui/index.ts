@@ -10,7 +10,7 @@ const list: Record<string, UIFramework> = {
   react: react,
   defaultJs: defaultJs,
   jquery: jquery,
-  none: none,
+  none: none
 };
 
 export default list;

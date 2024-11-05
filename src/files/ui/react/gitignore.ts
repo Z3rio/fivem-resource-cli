@@ -2,7 +2,7 @@ import { File } from "../../../utils/types";
 
 const data: File = {
   name: ".gitignore",
-  content: `html`,
-}
+  content: `html`
+};
 
-export default data
+export default data;

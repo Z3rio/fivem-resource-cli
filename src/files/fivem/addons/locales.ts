@@ -7,7 +7,7 @@ const files: File[] = [
     "shared/locale.lua",
     "locales/*.lua"
 })`,
-    comment: "Addon: Locales",
+    comment: "Addon: Locales"
   },
   {
     name: "shared/locale.lua",
@@ -51,11 +51,11 @@ _U = TranslateCap`
     name: "config.lua",
     content: `Config.Locale = "en"`
   }
-]
+];
 
 export default {
   label: "Locales",
   name: "locale",
   files: files,
   checkedByDefault: true
-} as Addon
+} as Addon;

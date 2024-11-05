@@ -10,13 +10,13 @@ const files: File[] = [
     content: `shared_scripts({
     "configs/main.lua"
 })`,
-    comment: "Addon: Configs",
+    comment: "Addon: Configs"
   }
-]
+];
 
 export default {
   label: "Config",
   name: "config",
   files: files,
   checkedByDefault: true
-} as Addon
+} as Addon;

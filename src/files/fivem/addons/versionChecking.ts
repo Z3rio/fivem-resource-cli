@@ -42,12 +42,12 @@ PerformHttpRequest(
     "server/versionchecker.lua"
 })`,
     comment: "Addon: Version Checker"
-  },
-]
+  }
+];
 
 // todo: ask user about version the values above ^^
 export default {
   label: "Version Checking",
   name: "versionchecking",
   files: files
-} as Addon
+} as Addon;

@@ -10,7 +10,7 @@ const data: UIFramework = {
         "npm install -g create-vite@latest",
         {
           js: "npm create vite@latest ui -- --template vue",
-          ts: "npm create vite@latest ui -- --template vue-ts",
+          ts: "npm create vite@latest ui -- --template vue-ts"
         }
       ],
       quiet: true
@@ -23,7 +23,7 @@ const data: UIFramework = {
       type: "action",
       name: "refactorViteCfg"
     }
-  ],
+  ]
 };
 
 export default data;
