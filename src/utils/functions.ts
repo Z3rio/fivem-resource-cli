@@ -180,7 +180,8 @@ export async function createFiles(
           }
 
           if (existsSync(filePath)) {
-            data[key].content = readFileSync(filePath) + "\r\n\r\n" + data[key];
+            data[key].content =
+              readFileSync(filePath) + "\r\n\r\n" + data[key].content;
           }
 
           writeFileSync(filePath, data[key].content);
