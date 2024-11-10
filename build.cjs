@@ -1,4 +1,4 @@
-const { spawnSync } = require("child_process");
+const { execSync } = require("child_process");
 const { rmSync, existsSync } = require("fs");
 const path = require("path");
 
@@ -14,6 +14,7 @@ if (existsSync(distDir)) {
 }
 
 console.info("Building project");
-spawnSync("npx tsc", {
-  cwd: __dirname
+execSync("npx tsc", {
+  cwd: __dirname,
+  stdio: [0, 1, 2]
 });
