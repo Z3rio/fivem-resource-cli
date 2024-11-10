@@ -1,6 +1,6 @@
 {
   "name": "fivem-resource-cli",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "This is a FiveM resource CLI made to make it easier for people to create their own resources.",
   "type": "module",
   "bin": {
@@ -13,8 +13,7 @@
     "format:write": "eslint --fix && prettier -w .",
     "lint:check": "pnpm format:check",
     "lint:write": "pnpm format:write",
-    "prepare": "husky",
-    "preinstall": "npx only-allow pnpm"
+    "prepare": "husky"
   },
   "repository": {
     "type": "git",
