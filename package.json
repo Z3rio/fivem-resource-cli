@@ -8,7 +8,7 @@
     "frc": "dist/index.js"
   },
   "scripts": {
-    "build": "rm -rf dist && npx tsc && chmod -R 777 .",
+    "build": "node build.cjs",
     "format:check": "eslint && prettier -c .",
     "format:write": "eslint --fix && prettier -w .",
     "lint:check": "pnpm format:check",

@@ -11,7 +11,8 @@ export default [
       "pnpm-lock.yaml",
       ".git/*",
       ".husky/*",
-      ".gitattributes"
+      ".gitattributes",
+      "build.cjs"
     ]
   },
   {
