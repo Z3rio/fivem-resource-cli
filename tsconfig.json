@@ -11,6 +11,7 @@
     "sourceMap": false,
     "noUnusedLocals": true,
     "esModuleInterop": true,
-    "allowImportingTsExtensions": false
+    "allowImportingTsExtensions": false,
+    "removeComments": true
   }
 }

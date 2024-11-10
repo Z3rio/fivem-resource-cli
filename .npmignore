@@ -10,3 +10,5 @@ eslint.config.js
 tsconfig.json
 README.md
 logo.png
+build.cjs
+package-lock.json
