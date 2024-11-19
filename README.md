@@ -2,6 +2,8 @@
 
 # FiveM Resource CLI
 
+## PLEASE NOTE THIS REPO IS BEING MOVED [HERE](https://github.com/Z3rio/fivem-resource-cli)
+
 [**NPM Package Link**](https://www.npmjs.com/package/fivem-resource-cli)
 
 This is a Command Line Interface made to make it easier for you to create a new FiveM resource.<br>
