@@ -4,7 +4,7 @@
 
 ## PLEASE NOTE THIS REPO HAS BEEN MOVED
 
-The new Github repo can be found here [here](https://github.com/Z3rio/fivem-resource-cli), the new NPM package can be found [here](https://www.npmjs.com/package/frs-manager)
+The new Github repo can be found here [here](https://github.com/Z3rio/frs-manager), the new NPM package can be found [here](https://www.npmjs.com/package/frs-manager)
 
 [**NPM Package Link**](https://www.npmjs.com/package/fivem-resource-cli)
 
